@@ -1,0 +1,5 @@
+[package]
+
+name = "millipede"
+version = "0.0.1"
+authors = [ "qperez@staff.42.fr" ]
