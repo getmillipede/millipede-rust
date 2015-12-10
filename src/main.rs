@@ -1,15 +1,18 @@
-use std::env;
+extern crate argparse;
+use argparse::{ArgumentParser, Store};
 
 fn main() {
-    let args: Vec<_> = env::args().collect();
-    let mut size: i32 = 20;
+    let mut size:i32 = 20;
     let padding = vec!["  ", " ", "", " ", "  ", "   ", "    ", "   "];
 
-    if args.len() > 1 {
-        size = args[1]
-                   .parse()
-                   .ok()
-                   .expect("Wanted a number");
+    {  // this block limits scope of borrows by ap.refer() method
+        let mut ap = ArgumentParser::new();
+
+        ap.set_description("Print a beautiful millipede (written in rust)");
+        ap.refer(&mut size)
+            .add_option(&["-s", "--size"], Store,
+            "Be verbose");
+        ap.parse_args_or_exit();
     }
     if size >= 0 {
         let mut i: usize = 0;
