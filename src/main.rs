@@ -1,8 +1,9 @@
 extern crate argparse;
-use argparse::{ArgumentParser, Store};
+use argparse::{ArgumentParser, StoreTrue, Store};
 
 fn main() {
-    let mut size:i32 = 20;
+    let mut size: usize = 20;
+    let mut reverse: bool = false;
     let mut skin = "███".to_string();
     let padding = vec!["  ", " ", "", " ", "  ", "   ", "    ", "   "];
 
@@ -11,23 +12,26 @@ fn main() {
 
         ap.set_description("Print a beautiful millipede (written in rust)");
         ap.refer(&mut size)
-            .add_option(&["--size"], Store,
-            "Changes the size");
+            .add_option(&["-w", "--width"], Store,
+            "millipede width");
         ap.refer(&mut skin)
-            .add_option(&["--skin"], Store,
-            "Changes the skin");
+            .add_option(&["-s", "--skin"], Store,
+            "millipede skin");
+        ap.refer(&mut reverse)
+            .add_option(&["-r", "--reverse"], StoreTrue,
+            "reverse the millipede");
         ap.parse_args_or_exit();
     }
-    if size >= 0 {
+    if reverse == false {
         let mut i: usize = 0;
 
         println!("    ╚⊙ ⊙╝");
-        while i < size as usize {
+        while i < size {
             println!("{}╚═({})═╝", padding[i % 8], skin);
             i = i + 1;
         }
     } else {
-        let mut i: usize = size.abs() as usize;
+        let mut i: usize = size;
 
         while i > 0 {
             println!("{}╔═({})═╗", padding[i % 8], skin);
