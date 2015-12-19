@@ -16,6 +16,14 @@ optional arguments:
   -r,--reverse          reverse the millipede
 ```
 
+### OSX instructions
+
+```console
+$> brew install openssl
+$> export OPENSSL_INCLUDE_DIR=`brew --prefix openssl`/include
+$> export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib
+```
+
 ## Example
 
 ```console
